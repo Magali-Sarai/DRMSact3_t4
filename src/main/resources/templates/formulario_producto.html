@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Formulario</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 30px auto; padding: 20px; background: #f8fafc; color: #1e293b; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.08); }
+        .value-box { background: #eff6ff; border-left: 4px solid #2563eb; padding: 10px; margin-bottom: 15px; font-size: 14px; }
+        label { display: block; margin-top: 12px; font-weight: bold; }
+        input, select { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        button { margin-top: 20px; padding: 12px 20px; background: #16a34a; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; }
+        a { display: inline-block; margin-top: 15px; color: #2563eb; text-decoration: none; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="value-box">
+        <strong th:text="${nombreProyecto}"></strong> | <span th:text="${nombreAutora}"></span>
+    </div>
+
+    <h2 th:text="${titulo}">Formulario</h2>
+
+    <form th:action="@{/productos/guardar}" th:object="${nuevoProducto}" method="post">
+        <label>ID:</label>
+        <input type="number" th:field="*{id}" placeholder="Ej. 6" required>
+
+        <label>Nombre del Producto:</label>
+        <input type="text" th:field="*{nombre}" placeholder="Ej. Switch Cisco Catalyst" required>
+
+        <label>Categoría:</label>
+        <select th:field="*{categoria}">
+            <option value="Hardware">Hardware</option>
+            <option value="Redes">Redes</option>
+            <option value="Audio">Audio</option>
+            <option value="Software">Software</option>
+        </select>
+
+        <label>Precio (MXN):</label>
+        <input type="number" step="0.01" th:field="*{precio}" placeholder="Ej. 3500.00" required>
+
+        <button type="submit">Enviar con @ModelAttribute</button>
+    </form>
+
+    <a th:href="@{/productos/lista}">Volver a la lista</a>
+</div>
+</body>
+</html>

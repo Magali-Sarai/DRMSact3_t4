@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Catálogo de Productos</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 850px; margin: 30px auto; padding: 20px; background: #f8fafc; color: #1e293b; }
+        .card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.08); }
+        .value-box { background: #eff6ff; border-left: 4px solid #2563eb; padding: 12px 16px; margin-bottom: 20px; border-radius: 4px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+        th { background: #1e293b; color: white; }
+        .btn { display: inline-block; padding: 8px 14px; background: #2563eb; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; margin-right: 5px; }
+        .btn-sec { background: #475569; }
+        .btn-green { background: #16a34a; float: right; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="value-box">
+        <strong>Propiedad @Value:</strong> <span th:text="${tarea}"></span><br>
+        <strong>Estudiante:</strong> <span th:text="${nombre}"></span> <strong> Materia: </strong> <span th:text="${materia}"></span>
+    </div>
+
+    <h1 th:text="${titulo}">Lista de Productos</h1>
+
+    <div>
+        <strong>Filtrar (@RequestParam): </strong>
+        <a class="btn btn-sec" th:href="@{/productos/lista}">Ver Todos</a>
+        <a class="btn btn-sec" th:href="@{/productos/filtrar(categoria='Hardware')}">Hardware</a>
+        <a class="btn btn-sec" th:href="@{/productos/filtrar(categoria='Redes')}">Redes</a>
+        <a class="btn btn-sec" th:href="@{/productos/filtrar(categoria='Audio')}">Audio</a>
+        <a class="btn btn-green" th:href="@{/productos/formulario}">+ Registrar Producto (@ModelAttribute)</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Detalle (@PathVariable)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="prod : ${productos}">
+                <td th:text="${prod.id}"></td>
+                <td th:text="${prod.nombre}"></td>
+                <td th:text="${prod.categoria}"></td>
+                <td th:text="'$' + ${prod.precio}"></td>
+                <td>
+                    <a class="btn" th:href="@{/productos/ver/{id}(id=${prod.id})}">Ver por ID</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
